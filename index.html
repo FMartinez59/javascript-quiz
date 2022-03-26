@@ -9,21 +9,24 @@
 </head>
 <body>
     <!-- onclick="startQuiz()" -->
-    <button id="start" class="start" onclick="startQuiz()">Start The Quiz</button>
-    <div id="timer" class="timer"></div>
-    <header>Welcome to the quiz</header>
+    <!-- <button id="start" class="start" onclick="startQuiz()">Start The Quiz</button> -->
     
-    
-    
-    
-    <section>
-      <p id="question"></p>  
-      <ul id="answers" ></ul>
-    </section>
-
-
-
-
+<main id="screens">
+  <section id="screen0" data-states="[0]">
+    <h1>Screen 0</h1>
+    <button>Go to State 1</button>
+  </section>
+  <section id="screen1" class="isHidden" data-states="[1]">
+    <h1>Screen 1</h1>
+    <h2 id="questions">Fake text</h2>
+    <ul id="answers"></ul>
+    <button>Go to state 2</button>
+  </section>
+  <section id ="screen2" class="hide" data-states="[2]">
+    <h1>Screen 3</h1>
+    <button>Go to State 0</button>
+  </section>
+</main>
 <script src="./assests/javascript/script.js"></script>
 </body>
 </html>
