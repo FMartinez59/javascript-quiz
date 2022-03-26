@@ -1,6 +1,8 @@
+import "./styles.css";
 let startTimer = 10;
-// const questions = 
-
+var screen0El = document.querySelector("#screen0");
+var screen1El = document.querySelector("#screen1");
+var screen2El = document.querySelector("#screen2")
 
 
 const updateTimer = () =>{
