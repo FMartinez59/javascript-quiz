@@ -97,6 +97,43 @@ function setState(state) {
         }
     });
 }
+
+function populateQuestion() {
+    var questionObj = questions[currentQuestion];
+    //remove the current list items
+    answersEl.innerHTML= "";
+    questionsEl.textContent = questionObj.question;
+    questionObj.answers.forEach(function (question) {
+        var li = document.createElement("li");
+        li.textContent = question;
+        answersEl.appendChild(li);
+    });
+    if (currentQuestion === questions.length - 1) {
+        currentQuestion = 0;
+    } else {
+        currentQuestion++;
+    }
+}
+
+function setEventListeners() {
+    screen0BtnEl.addEventListener("click", function() {
+        setState(1);
+    });
+    screen1BtnEl.addEventListener("click", function() {
+        setState(2);
+    });
+    screen2BtnEl.addEventListener("click", function() {
+        setState(0);
+    });
+    answersEl.addEventListener("click", function (evt) {
+        var target = evt.target;
+        if (target.matches("li")) {
+            window.alert(target.innerText);
+        }
+    })
+}
+
+init();
 const updateTimer = () =>{
     setInterval(()=>{
         let timer = document.getElementById('timer');
