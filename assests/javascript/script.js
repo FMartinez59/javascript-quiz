@@ -1,8 +1,23 @@
 import "./styles.css";
 let startTimer = 10;
 var screen0El = document.querySelector("#screen0");
+var screen0BtnEl = screen0El.querySelector("#button")
 var screen1El = document.querySelector("#screen1");
-var screen2El = document.querySelector("#screen2")
+var screen1BtnEl = screen1El.querySelector("#button");
+var screen2El = document.querySelector("#screen2");
+var screen2BtnEl = screen2El.querySelector("#button");
+var doSomethingEl = document.querySelector("#doSomething");
+var saySomethingEl = document.querySelector("#saySomething");
+var questionsEl = document.querySelector("#questions");
+var answersEl = document.querySelector("possibleAnswers");
+
+var HIDE_Class = "isHidden";
+var questions = [
+    {
+        question: ""
+    }
+]
+
 
 
 const updateTimer = () =>{

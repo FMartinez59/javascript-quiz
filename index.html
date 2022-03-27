@@ -10,23 +10,31 @@
 <body>
     <!-- onclick="startQuiz()" -->
     <!-- <button id="start" class="start" onclick="startQuiz()">Start The Quiz</button> -->
-    
-<main id="screens">
-  <section id="screen0" data-states="[0]">
-    <h1>Screen 0</h1>
-    <button>Go to State 1</button>
-  </section>
-  <section id="screen1" class="isHidden" data-states="[1]">
-    <h1>Screen 1</h1>
-    <h2 id="questions">Fake text</h2>
-    <ul id="answers"></ul>
-    <button>Go to state 2</button>
-  </section>
-  <section id ="screen2" class="hide" data-states="[2]">
-    <h1>Screen 3</h1>
-    <button>Go to State 0</button>
-  </section>
-</main>
+   <outline id="app">
+     <header>
+       <button id="doSomething" data-states="[0,2]">
+         this does something
+       </button>
+       <p id="saySomething" data-states="[0,1]">this says something </p>
+     </header>
+    <main id="screens">
+      <section id="screen0" data-states="[0]">
+        <h1>Screen 0</h1>
+        <button>Go to State 1</button>
+      </section>
+      <section id="screen1" class="isHidden" data-states="[1]">
+        <h1>Screen 1</h1>
+        <h2 id="questions">Fake text</h2>
+        <ul id="possibleAnswers"></ul>
+        <button>Go to state 2</button>
+      </section>
+      <section id ="screen2" class="hide" data-states="[2]">
+        <h1>Screen 3</h1>
+        <button>Go to State 0</button>
+      </section>
+    </main>
+   </outline> 
+
 <script src="./assests/javascript/script.js"></script>
 </body>
 </html>
