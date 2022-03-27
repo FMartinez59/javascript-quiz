@@ -11,7 +11,7 @@ var saySomethingEl = document.querySelector("#saySomething");
 var questionsEl = document.querySelector("#questions");
 var answersEl = document.querySelector("possibleAnswers");
 
-var HIDE_Class = "isHidden";
+var HIDE_CLASS = "isHidden";
 var questions = [
     {
         question: " Who is the manager of the Scranton Branch of Dunder Mifflin ",
@@ -64,9 +64,39 @@ var questions = [
         answer: 0
     },
 ];
+var currentQuestion = 0;
 
+var dynamicElements = [
+    screen0El,
+    screen1El,
+    screen2El,
+    doSomethingEl,
+    saySomethingEl,
+];
 
+function init() {
+    setEventListeners();
+}
 
+function setState(state) {
+    switch (state) {
+        case 1:
+            populateQuestion();
+            break;
+            default:
+            break;
+    }
+
+    dynamicElements.forEach(function (ele) {
+        var possibleStatesAttr = ele.getAttribute("data-states");
+        var possibleStates = JSON.parse(possibleStatesAttr);
+        if (possibleStates.includes(state)) {
+            ele.classList.remove(HIDE_CLASS);
+        } else {
+            ele.classList.add(HIDE_CLASS);
+        }
+    });
+}
 const updateTimer = () =>{
     setInterval(()=>{
         let timer = document.getElementById('timer');
