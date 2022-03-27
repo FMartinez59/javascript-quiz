@@ -12,25 +12,39 @@
     <!-- <button id="start" class="start" onclick="startQuiz()">Start The Quiz</button> -->
    <outline id="app">
      <header>
-       <button id="doSomething" data-states="[0,2]">
-         this does something
+       <button id="HighScores" data-states="[0,2]">
+         High Scores
        </button>
        <p id="saySomething" data-states="[0,1]">this says something </p>
      </header>
     <main id="screens">
       <section id="screen0" data-states="[0]">
-        <h1>Screen 0</h1>
-        <button>Go to State 1</button>
+        <h1>Welcome To the Dunder Mifflin Quiz </h1>
+        <P>You claim to like The Office but can you answer all 10 of these questions correctly?</P>
+        <button>Start</button>
       </section>
       <section id="screen1" class="isHidden" data-states="[1]">
-        <h1>Screen 1</h1>
-        <h2 id="questions">Fake text</h2>
-        <ul id="possibleAnswers"></ul>
-        <button>Go to state 2</button>
+        <span id = "timer"></span><br>
+        <h2 id="questions"></h2>
+        <ol id="possibleAnswers"></ol>
       </section>
-      <section id ="screen2" class="hide" data-states="[2]">
-        <h1>Screen 3</h1>
-        <button>Go to State 0</button>
+      <section id ="screen2" class="isHidden" data-states="[2]">
+        <h1>Dwight's an ignorant slut and so are you, now log your High Score </h1>
+        <h2>Final Score: <span id="finalScore"></span></h2>
+        <form id="highscoreFm">
+          <p>Enter Initials: </p>
+          <label class="inptInitialLb">
+            <input type="text" id="inptInit">
+          </label>
+        </form>
+        <button>Submit Scores</button>
+      </section>
+      <section id="screen3" class="isHidden" data-states="[3]">
+        <h1>Employee Rankings</h1>
+        <h2 id="highScoresMsg"></h2>
+            <p id="highScoresEl"></p>
+            <!-- Back to main menu  -->
+            <button>dwight's an ignorant slut and so are you, now get the hell out of here.</button>
       </section>
     </main>
    </outline> 
