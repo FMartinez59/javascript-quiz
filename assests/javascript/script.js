@@ -14,9 +14,56 @@ var answersEl = document.querySelector("possibleAnswers");
 var HIDE_Class = "isHidden";
 var questions = [
     {
-        question: ""
-    }
-]
+        question: " Who is the manager of the Scranton Branch of Dunder Mifflin ",
+        answers: ["Andy Bernard", "Dwight Schrute", "Michael Scott", "Jim Halpert"],
+        answer: 0
+    },
+    {
+        question: " What special package does Packman leave in Michael's office? ",
+        answers: ["Cake", "Stray Dogs", "Poop", "His stapler in jello"],
+        answer: 0
+    },
+    {
+        question: " What song does Michael play on his way to his new paper company? ",
+        answers: ["Just Dance", "Fall for You", "Guess Who's Back", "Empire State of Mind"],
+        answer: 0
+    },
+    {
+        question: " What is Andy's nickname from college ",
+        answers: ["Nard Dog", "Wicked Hammer", "Buzz", "Ace"],
+        answer: 0
+    },
+    {
+        question: " Why is Jim good at basketball? ",
+        answers: ["He is 6'3", "Ball is life", "Played in College", "It was his thing in high school"],
+        answer: 0
+    },
+    {
+        question: " Why is Michael depressed and is going to jump off the roof? ",
+        answers: ["Darryl said he wasn't a real man since he worked in an office", "He read about depression on WebMD", "Safety Training", "Is actually Depressed"],
+        answer: 0
+    },
+    {
+        question: " Why did Jan set up a camera in her and Michael's bedroom? ",
+        answers: ["To post the video online", "To show her therapist", "For memories", "To show Michael where he needed to fix his form"],
+        answer: 0
+    },
+    {
+        question: " How big is Michael's Plasma TV? ",
+        answers: ["80in", "50in", "30in", "14in"],
+        answer: 0
+    },
+    {
+        question: " What did Oscar and Kevin catch Angela doing on her nanny cam? ",
+        answers: ["Sleeping with her cats", "Feeding her cats dog food", "Licking her cats clean", "Smuggling Cats"],
+        answer: 0
+    },
+    {
+        question: " Who does Michael hit with his car on the way to work? ",
+        answers: ["Dwight", "Meredith", "Kevin", "Kelly"],
+        answer: 0
+    },
+];
 
 
 
