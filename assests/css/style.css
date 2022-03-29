@@ -1,4 +1,4 @@
-* {
+/* * {
     background-color: black;
 }
 .start {
@@ -12,17 +12,17 @@
 }
 .start:hover {
     background-color: darkorange;
-    font-size: 150%;
-}
+    font-size: 150%; */
+/* } */
 
 .isHidden {
     display: none;
 }
-header {
+/* header {
     display: flex;
     justify-content: center;
     font-family: fantasy;
     font-size: 50px;
     color: burlywood;
     background-color: black;
-}
+} */

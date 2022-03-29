@@ -1,20 +1,32 @@
-import "./styles.css";
 let startTimer = 10;
 var screen0El = document.querySelector("#screen0");
-var screen0BtnEl = screen0El.querySelector("#button")
+var screen0BtnEl = screen0El.querySelector("#button");
 var screen1El = document.querySelector("#screen1");
 var screen1BtnEl = screen1El.querySelector("#button");
 var screen2El = document.querySelector("#screen2");
 var screen2BtnEl = screen2El.querySelector("#button");
 var screen3El = document.querySelector("#screen3");
 var screen3BtnEl = screen3El.querySelector("#button");
-var highScoresEl = document.querySelector("#HighScores");
-var saySomethingEl = document.querySelector("#saySomething");
+var highScoresBtnEl = document.querySelector("#HighScoresBtn");
+var highScoresEl = document.querySelector("#highScoresEl");
+var highScoreMsg = document.querySelector("#highScoreMsg");
+var finalScoreEl = document.querySelector("#finalScore");
 var questionsEl = document.querySelector("#questions");
 var answersEl = document.querySelector("possibleAnswers");
-
+var initialEl = document.querySelector("#inptInit");
+var timerEl = document.querySelector("#timer");
+var timerTextEl = document.querySelector("#timerText");
+var timeRemaining;
+var timeInt;
 
 var HIDE_CLASS = "isHidden";
+
+var highScoreInventory = [];
+
+function quizGameObj(initials, score) {
+    this.initials = initials;
+    this.score = score;
+}
 
 var questions = [
     {
@@ -74,21 +86,49 @@ var dynamicElements = [
     screen0El,
     screen1El,
     screen2El,
-    highScoresEl,
-    saySomethingEl,
+    screen3El,
+    highScoresBtnEl,
 ];
 
 function init() {
     setEventListeners();
+    highScoreList();
+}
+
+function storeGame() {
+    localStorage.setItem("highScoreInventory", JSON.stringify(highScoreInventory));
+  }
+
+function newGame() {
+    currentQuestion =0;
+    currentGame = new quizGameObj("",0);
+    populateQuestion(currentQuestion);
+    updateTimer();
+}
+function checkAnswer(currentQuestion, answerID) {
+    console.log("answerID:" + answerID);
+    console.log("answer object:");
+    console.log(questions[currentQuestion]['answer']);
+    if (answerID==questions[currentQuestion]['answer']) {
+        right(true);
+    } else {
+        right(false);
+    }
 }
 
 function setState(state) {
     switch (state) {
         case 1:
-            populateQuestion();
+            newGame();
             break;
-            default:
+        case 2:
+            setFinalScore()
             break;
+        case 3:
+            highScoreList();
+            break;
+        default:
+            break; 
     }
 
     dynamicElements.forEach(function (ele) {
@@ -123,21 +163,30 @@ function setEventListeners() {
     screen0BtnEl.addEventListener("click", function() {
         setState(1);
     });
-    screen1BtnEl.addEventListener("click", function() {
-        setState(2);
-    });
     screen2BtnEl.addEventListener("click", function() {
+        setState(3);
+    });
+    highScoresButtonEle.addEventListener("click", function () {
+        setState(3);
+      });
+    screen3BtnEl.addEventListener("click", function() {
         setState(0);
     });
     answersEl.addEventListener("click", function (evt) {
         var target = evt.target;
         if (target.matches("li")) {
-            window.alert(target.innerText);
+            checkAnswer(currentQuestion,target.getAttribute("data-index"));
+        if (currentQuestion === questions.length-1) {
+            console.log("Game Ended");
+            clearInterval(timeInt);
+            setState(2);
+        } else {
+            currentQuestion++;
+            populateQuestion(currentQuestion)
         }
-    })
+        }
+    });
 }
-
-init();
 
 const updateTimer = () =>{
     setInterval(()=>{
@@ -154,10 +203,4 @@ const startQuiz = () =>{
    console.log('hello world')
    updateTimer();
 }
-//    call show question function here. check timer if it runs out go to next question if they answer correctly give them points and continue with timer restart
-document.getElementById('question').innerHTML = "What code Do I use to change the font in CSS?"
-//run for loop 4 times and each time create a new list element and write into the li element what ever i want in it it
-// for (i>0; const list = document.createElement("li");)
-// list.innerHTML = "A. font-family"
-// document.getElementById('answers').appendChild(list)
-// }
+init();
