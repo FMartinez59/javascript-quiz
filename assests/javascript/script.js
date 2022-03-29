@@ -16,6 +16,7 @@ var answersEl = document.querySelector("possibleAnswers");
 var initialEl = document.querySelector("#inptInit");
 var timerEl = document.querySelector("#timer");
 var timerTextEl = document.querySelector("#timerText");
+var messageEl = document.querySelector("#message");
 var timeRemaining;
 var timeInt;
 
@@ -116,6 +117,37 @@ function checkAnswer(currentQuestion, answerID) {
     }
 }
 
+function right(right) {
+    if (right) {
+        console.log("Before score: " + currentGame["score"])
+        currentGame["score"]++
+        console.log("After score: " + currentGame["score"])
+        displayMessage("Right");
+    } else {
+        currentGame["score"]--
+        displayMessage("Wrong");
+        timeLeft=timeLeft-5
+    }
+}
+
+function displayMessage(message) {
+    switch (message) {
+        case "right":
+            messageEl.textContent = "Great Job Jimbo";
+            break;
+        case "wrong":
+            messageEl.textContent = "No God, Please NO!";
+            break;
+        case "noHigh":
+            highScoreMsg.textContent = "Do you deserve to win the Dundie award?";
+            highScoreMsg.classList.remove(HIDE_CLASS);
+            break;
+        case "high":
+            highScoreMsg.classList.add(HIDE_CLASS);
+            break;
+    }
+}
+
 function setState(state) {
     switch (state) {
         case 1:
@@ -147,16 +179,13 @@ function populateQuestion() {
     //remove the current list items
     answersEl.innerHTML= "";
     questionsEl.textContent = questionObj.question;
-    questionObj.answers.forEach(function (question) {
-        var li = document.createElement("li");
-        li.textContent = question;
+    for (i=0;i< questionObj.answers.length; i++) {
+        var answer = questionObj.answers[i];
+        var li =document.createElement("li");
+        li.setAttribute("data-index",i);
+        li.textContent = answer;
         answersEl.appendChild(li);
-    });
-    if (currentQuestion === questions.length - 1) {
-        currentQuestion = 0;
-    } else {
-        currentQuestion++;
-    }
+    };
 }
 
 function setEventListeners() {
