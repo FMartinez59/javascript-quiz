@@ -8,27 +8,27 @@
     <link rel="stylesheet" type="text/css" href="./assests/css/style.css"/>
 </head>
 <body>
-    <!-- onclick="startQuiz()" -->
-    <!-- <button id="start" class="start" onclick="startQuiz()">Start The Quiz</button> -->
    <outline id="app">
      <header>
-       <button id="HighScoresBtn" data-states="[0,2]">
+       <button id="highScoresBtn" data-states="[0,2]">
          High Scores
        </button>
      </header>
-    <main id="screens">
+    <main>
       <section id="screen0" data-states="[0]">
         <h1>Welcome To the Dunder Mifflin Quiz </h1>
         <P>You claim to like The Office, but can you answer all 10 of these questions correctly?</P>
-        <button>Start</button>
+        <button id = "startGameBtn">Start</button>
       </section>
       <section id="screen1" class="isHidden" data-states="[1]">
         <span id = "timer"></span><br>
-        <h2 id="questions"></h2>
+        <h2 id="questions">Lorem ipsum dolor.</h2>
         <ol id="possibleAnswers"></ol>
+        <p>____________________________________________________</p><br>
+            <h3><span id="message"></span></h3>
       </section>
       <section id ="screen2" class="isHidden" data-states="[2]">
-        <h1>Dwight's an ignorant slut and so are you, now log your High Score </h1>
+        <h1>Okay you did better than I thought,now log your scores or you are fired. </h1>
         <h2>Final Score: <span id="finalScore"></span></h2>
         <form id="highscoreFm">
           <p>Enter Initials: </p>
@@ -43,11 +43,11 @@
         <h2 id="highScoresMsg"></h2>
             <p id="highScoresEl"></p>
             <!-- Back to main menu  -->
-            <button>dwight's an ignorant slut and so are you, now get the hell out of here.</button>
+            <button>Dwight's an ignorant slut and so are you, now get the hell out of here.</button>
       </section>
     </main>
    </outline> 
 
-<script src="./assests/javascript/script.js"></script>
+<script async src="./assests/javascript/script.js"></script>
 </body>
 </html>

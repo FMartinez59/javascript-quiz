@@ -1,4 +1,3 @@
-let startTimer = 10;
 var screen0El = document.querySelector("#screen0");
 var screen0BtnEl = screen0El.querySelector("#button");
 var screen1El = document.querySelector("#screen1");
@@ -98,11 +97,11 @@ function init() {
 
 function storeGame() {
     localStorage.setItem("highScoreInventory", JSON.stringify(highScoreInventory));
-  }
+}
 
 function newGame() {
-    currentQuestion =0;
-    currentGame = new quizGameObj("",0);
+    currentQuestion = 0;
+    currentGame = new quizGameObj("", 0);
     populateQuestion(currentQuestion);
     updateTimer();
 }
@@ -110,7 +109,7 @@ function checkAnswer(currentQuestion, answerID) {
     console.log("answerID:" + answerID);
     console.log("answer object:");
     console.log(questions[currentQuestion]['answer']);
-    if (answerID==questions[currentQuestion]['answer']) {
+    if (answerID == questions[currentQuestion]['answer']) {
         right(true);
     } else {
         right(false);
@@ -126,7 +125,7 @@ function right(right) {
     } else {
         currentGame["score"]--
         displayMessage("Wrong");
-        timeLeft=timeLeft-5
+        timeRemaining = timeRemaining - 5
     }
 }
 
@@ -149,6 +148,7 @@ function displayMessage(message) {
 }
 
 function setState(state) {
+    console.log("State: " + state)
     switch (state) {
         case 1:
             newGame();
@@ -160,7 +160,7 @@ function setState(state) {
             highScoreList();
             break;
         default:
-            break; 
+            break;
     }
 
     dynamicElements.forEach(function (ele) {
@@ -176,60 +176,105 @@ function setState(state) {
 
 function populateQuestion() {
     var questionObj = questions[currentQuestion];
-    //remove the current list items
-    answersEl.innerHTML= "";
+    answersEl.innerHTML = "";
     questionsEl.textContent = questionObj.question;
-    for (i=0;i< questionObj.answers.length; i++) {
+    for (i = 0; i < questionObj.answers.length; i++) {
         var answer = questionObj.answers[i];
-        var li =document.createElement("li");
+        var li = document.createElement("li");
         li.setAttribute("data-index",i);
         li.textContent = answer;
         answersEl.appendChild(li);
     };
 }
 
+function setFinalScore() {
+    finalScoreEl.textContent = currentGame.score;
+}
+
+function setInitials(finalScore) {
+    currentGame["initials"] = initialEl.value;
+    finalScore = currentGame["score"];
+    highScoreInventory.push(currentGame);
+    storeGame();
+}
+
+function highScoreList() {
+    highScoreInventory = JSON.parse(localStorage.getItem("highScoreInventory"));
+
+    highScoresEl.innerHTML = ""
+    var tbl = document.createElement("table");
+    var tblh = document.createElement("thead")
+    var tblBody = document.createElement("tbody");
+    var c, r
+    r = tbl.insertRow(0);
+    c = r.insertCell(0);
+    c.innerHTML = "<h2>Initials</h2>";
+    c = r.insertCell(1);
+    c.innerHTML = "<h2>Score</h2>"
+    if (highScoreInventory !== null) {
+        console.log("High Scores Present")
+        displayMessage("high");
+        highScoreInventory.forEach(function (gameobj, index) {
+            console.log("[" + index + "]: " + gameobj.initials);
+            var c, r
+            r = tbl.insertRow(index + 1);
+            c = r.insertCell(0);
+            c.innerHTML = gameobj.initials
+            c = r.insertCell(1);
+            c.innerHTML = gameobj.score
+            highScoresEl.appendChild(tbl);
+        });
+    } else {
+        console.log("No High Scores Present")
+        displayMessage("noHigh");
+        highScoreInventory = [];
+    }
+}
+
+const updateTimer = () => {
+    timeRemaining = 45;
+    timeInt = setInterval(() => {
+        currentGame["score"] = timeRemaining;
+        if (timeRemaining > 1) {
+            timerEl.textContent = timeRemaining + "seconds remaining";
+            timeRemaining--;
+        } else if (timeRemaining === 1) {
+            timerEl.textContent = timeRemaining + " second remaining";
+            timeRemaining--;
+        } else {
+            timerEl.textContent = "";
+            clearInterval(timeInt);
+            setState(2);
+        }
+    }, 1000);
+}
+
 function setEventListeners() {
-    screen0BtnEl.addEventListener("click", function() {
+    screen0BtnEl.addEventListener("click", function () {
         setState(1);
     });
-    screen2BtnEl.addEventListener("click", function() {
+    screen2BtnEl.addEventListener("click", function () {
         setState(3);
     });
-    highScoresButtonEle.addEventListener("click", function () {
+    highScoresBtnEl.addEventListener("click", function () {
         setState(3);
-      });
-    screen3BtnEl.addEventListener("click", function() {
+    });
+    screen3BtnEl.addEventListener("click", function () {
         setState(0);
     });
     answersEl.addEventListener("click", function (evt) {
         var target = evt.target;
         if (target.matches("li")) {
-            checkAnswer(currentQuestion,target.getAttribute("data-index"));
-        if (currentQuestion === questions.length-1) {
-            console.log("Game Ended");
-            clearInterval(timeInt);
-            setState(2);
-        } else {
-            currentQuestion++;
-            populateQuestion(currentQuestion)
-        }
+            checkAnswer(currentQuestion, target.getAttribute("data-index"));
+            if (currentQuestion === questions.length - 1) {
+                console.log("Game Ended");
+                clearInterval(timeInt);
+                setState(2);
+            } else {
+                currentQuestion++;
+                populateQuestion(currentQuestion)
+            }
         }
     });
-}
-
-const updateTimer = () =>{
-    setInterval(()=>{
-        let timer = document.getElementById('timer');
-        //putting content of the start timer var in div tag with ID of timer
-        timer.innerHTML = startTimer;
-        startTimer--;
-    },1000)
-} 
-
-const startQuiz = () =>{
-   let startButton = document.getElementById('start');
-   startButton.classList.add("isHidden");
-   console.log('hello world')
-   updateTimer();
 }
 init();
