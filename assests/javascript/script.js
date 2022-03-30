@@ -1,17 +1,17 @@
 var screen0El = document.querySelector("#screen0");
-var screen0BtnEl = screen0El.querySelector("#button");
+var screen0BtnEl = screen0El.querySelector("button");
 var screen1El = document.querySelector("#screen1");
-var screen1BtnEl = screen1El.querySelector("#button");
+var screen1BtnEl = screen1El.querySelector("button");
 var screen2El = document.querySelector("#screen2");
-var screen2BtnEl = screen2El.querySelector("#button");
+var screen2BtnEl = screen2El.querySelector("button");
 var screen3El = document.querySelector("#screen3");
-var screen3BtnEl = screen3El.querySelector("#button");
-var highScoresBtnEl = document.querySelector("#HighScoresBtn");
+var screen3BtnEl = screen3El.querySelector("button");
+var highScoresBtnEl = document.querySelector("#highScoresBtn");
 var highScoresEl = document.querySelector("#highScoresEl");
-var highScoreMsg = document.querySelector("#highScoreMsg");
+var highScoreMsg = document.querySelector("#highScoresMsg");
 var finalScoreEl = document.querySelector("#finalScore");
 var questionsEl = document.querySelector("#questions");
-var answersEl = document.querySelector("possibleAnswers");
+var answersEl = document.querySelector("#possibleAnswers");
 var initialEl = document.querySelector("#inptInit");
 var timerEl = document.querySelector("#timer");
 var timerTextEl = document.querySelector("#timerText");
@@ -81,7 +81,7 @@ var questions = [
     },
 ];
 var currentQuestion = 0;
-
+//elements that will change with state
 var dynamicElements = [
     screen0El,
     screen1El,
@@ -89,7 +89,7 @@ var dynamicElements = [
     screen3El,
     highScoresBtnEl,
 ];
-
+//init runs when page loads and it will prepare the listeners and get any saved high scores 
 function init() {
     setEventListeners();
     highScoreList();
@@ -105,6 +105,8 @@ function newGame() {
     populateQuestion(currentQuestion);
     updateTimer();
 }
+
+// checks to see if answer is correct if not it will go to right wrong function
 function checkAnswer(currentQuestion, answerID) {
     console.log("answerID:" + answerID);
     console.log("answer object:");
@@ -115,20 +117,20 @@ function checkAnswer(currentQuestion, answerID) {
         right(false);
     }
 }
-
+//if right add score points if wrong display message and cut time
 function right(right) {
     if (right) {
         console.log("Before score: " + currentGame["score"])
         currentGame["score"]++
         console.log("After score: " + currentGame["score"])
-        displayMessage("Right");
+        displayMessage("right");
     } else {
         currentGame["score"]--
-        displayMessage("Wrong");
+        displayMessage("wrong");
         timeRemaining = timeRemaining - 5
     }
 }
-
+//controls all the messages that displays to the user
 function displayMessage(message) {
     switch (message) {
         case "right":
@@ -146,7 +148,7 @@ function displayMessage(message) {
             break;
     }
 }
-
+//hides and un-hides screens based on where the user it at in the game 
 function setState(state) {
     console.log("State: " + state)
     switch (state) {
@@ -162,7 +164,7 @@ function setState(state) {
         default:
             break;
     }
-
+//this is how we use the data-states attribute to show or hide based on current state
     dynamicElements.forEach(function (ele) {
         var possibleStatesAttr = ele.getAttribute("data-states");
         var possibleStates = JSON.parse(possibleStatesAttr);
@@ -173,10 +175,10 @@ function setState(state) {
         }
     });
 }
-
+//grabs questions and answers as a list
 function populateQuestion() {
     var questionObj = questions[currentQuestion];
-    answersEl.innerHTML = "";
+     answersEl.innerHTML = "";
     questionsEl.textContent = questionObj.question;
     for (i = 0; i < questionObj.answers.length; i++) {
         var answer = questionObj.answers[i];
@@ -186,11 +188,12 @@ function populateQuestion() {
         answersEl.appendChild(li);
     };
 }
-
+//final score display
 function setFinalScore() {
     finalScoreEl.textContent = currentGame.score;
+    setInitials(currentGame.score);
 }
-
+//grabs users initials and pairs it with their scores
 function setInitials(finalScore) {
     currentGame["initials"] = initialEl.value;
     finalScore = currentGame["score"];
@@ -230,7 +233,7 @@ function highScoreList() {
         highScoreInventory = [];
     }
 }
-
+// if timer goes to 0 games over if not then its just a regular timer
 const updateTimer = () => {
     timeRemaining = 45;
     timeInt = setInterval(() => {
@@ -248,7 +251,8 @@ const updateTimer = () => {
         }
     }, 1000);
 }
-
+//these listeners listen for button click then advance the user to the next state
+// then the preset LI will be over ridden with the questions so the user can pick from them 
 function setEventListeners() {
     screen0BtnEl.addEventListener("click", function () {
         setState(1);
@@ -277,4 +281,5 @@ function setEventListeners() {
         }
     });
 }
+//call init function and set the game for the first page load
 init();
