@@ -191,7 +191,6 @@ function populateQuestion() {
 //final score display
 function setFinalScore() {
     finalScoreEl.textContent = currentGame.score;
-    setInitials(currentGame.score);
 }
 //grabs users initials and pairs it with their scores
 function setInitials(finalScore) {
@@ -257,8 +256,10 @@ function setEventListeners() {
     screen0BtnEl.addEventListener("click", function () {
         setState(1);
     });
-    screen2BtnEl.addEventListener("click", function () {
-        setState(3);
+    screen2BtnEl.addEventListener("click", function (event) {
+       event.preventDefault();
+       setInitials(currentGame.score);
+         setState(3);
     });
     highScoresBtnEl.addEventListener("click", function () {
         setState(3);
