@@ -5,22 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Office Quiz</title>
-    <link href="http://fonts.cdnfonts.com/css/american-typewriter" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/american-typewriter" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./assests/css/style.css"/>
 </head>
 <body>
    <outline id="app">
-     <header>
+     <!--high score list from main menu button  -->
+    <header>
        <button id="highScoresBtn" data-states="[0,2]">
          High Scores
        </button>
      </header>
     <main>
+<!-- main screen button -->
       <section id="screen0" data-states="[0]">
         <h1>Welcome To the Dunder Mifflin Quiz </h1>
         <P>You claim to like The Office, but can you answer all 10 of these questions correctly?</P>
         <button class="start-Button">Start</button>
       </section>
+      <!-- questions screen -->
       <section id="screen1" class="isHidden" data-states="[1]">
         <span id = "timer"></span><br>
         <h2 id="questions">Lorem ipsum dolor.</h2>
@@ -33,6 +36,7 @@
         <p>____________________________________________________</p><br>
             <h3><span id="message"></span></h3>
       </section>
+      <!-- final score plus high score form screen -->
       <section id ="screen2" class="isHidden" data-states="[2]">
         <h1>Okay you did better than I thought,now log your scores or you are fired. </h1>
         <h2>Final Score: <span id="finalScore"></span></h2>
